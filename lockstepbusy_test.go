@@ -38,7 +38,7 @@ func (t *lockstepBusySim) done() {
 func (t *lockstepBusySim) run(fn func(*entity)) {
 	t.state = fn
 	t.wg.Add(len(t.ents))
-	t.notify = atomic.AddUint32(&t.notify, 1)
+	atomic.AddUint32(&t.notify, 1)
 	t.wg.Wait()
 }
 

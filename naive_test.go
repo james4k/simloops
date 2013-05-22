@@ -22,26 +22,26 @@ func (t *naiveSim) tick() {
 	var wg sync.WaitGroup
 	wg.Add(len(t.ents))
 	for _, e := range t.ents {
-		go func() {
+		go func(e *entity) {
 			e.prethink()
 			wg.Done()
-		}()
+		}(e)
 	}
 	wg.Wait()
 	wg.Add(len(t.ents))
 	for _, e := range t.ents {
-		go func() {
+		go func(e *entity) {
 			e.think()
 			wg.Done()
-		}()
+		}(e)
 	}
 	wg.Wait()
 	wg.Add(len(t.ents))
 	for _, e := range t.ents {
-		go func() {
+		go func(e *entity) {
 			e.postthink()
 			wg.Done()
-		}()
+		}(e)
 	}
 	wg.Wait()
 }
