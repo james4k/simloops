@@ -69,6 +69,6 @@ func (t *lockstepBusySim) loop(e *entity) {
 	}
 }
 
-func BenchmarkLockstepBusyWait(b *testing.B) {
+func BenchmarkLockstepBusy(b *testing.B) {
 	bench(&lockstepBusySim{}, b)
 }
