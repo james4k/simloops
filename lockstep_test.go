@@ -5,6 +5,8 @@ import (
 	"testing"
 )
 
+// TODO: revise this..seems heavier on the locks than it should be
+
 type lockstepSim struct {
 	ents  []*entity
 	wg    sync.WaitGroup
