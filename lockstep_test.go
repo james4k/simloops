@@ -29,33 +29,17 @@ func (t *lockstepSim) spawn(count int) {
 }
 
 func (t *lockstepSim) tick() {
-	t.state = (*entity).prethink
-	t.wg.Add(len(t.ents))
-	t.mu.Unlock()
-	t.wg.Wait()
-	t.mu.Lock()
-	t.mui ^= 1
-	t.mu = &t.mus[t.mui]
-
-	t.state = (*entity).think
-	t.wg.Add(len(t.ents))
-	t.mu.Unlock()
-	t.wg.Wait()
-	t.mu.Lock()
-	t.mui ^= 1
-	t.mu = &t.mus[t.mui]
-
-	t.state = (*entity).postthink
-	t.wg.Add(len(t.ents))
-	t.mu.Unlock()
-	t.wg.Wait()
-	t.mu.Lock()
-	t.mui ^= 1
-	t.mu = &t.mus[t.mui]
+	t.run((*entity).prethink)
+	t.run((*entity).think)
+	t.run((*entity).postthink)
 }
 
 func (t *lockstepSim) done() {
-	t.state = nil
+	t.run(nil)
+}
+
+func (t *lockstepSim) run(fn func(*entity)) {
+	t.state = fn
 	t.wg.Add(len(t.ents))
 	t.mu.Unlock()
 	t.wg.Wait()
