@@ -5,8 +5,6 @@ import (
 	"testing"
 )
 
-// TODO: revise this..seems heavier on the locks than it should be
-
 type lockstepChanSim struct {
 	ents  []*entity
 	chans []chan func(*entity)

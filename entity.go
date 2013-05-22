@@ -13,7 +13,7 @@ type entity struct {
 
 func newEntity() *entity {
 	e := &entity{
-		data: make([]byte, 128),
+		data: make([]byte, 512),
 		work: make([]byte, 96),
 	}
 	_, err := rand.Reader.Read(e.data)
