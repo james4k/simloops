@@ -4,20 +4,20 @@ import (
 	"testing"
 )
 
-type typicalSim struct {
+type nonconcurrentSim struct {
 	ents []*entity
 }
 
-func (t *typicalSim) spawn(count int) {
+func (t *nonconcurrentSim) spawn(count int) {
 	for i := 0; i < count; i++ {
 		t.ents = append(t.ents, newEntity())
 	}
 }
 
-func (t *typicalSim) done() {
+func (t *nonconcurrentSim) done() {
 }
 
-func (t *typicalSim) tick() {
+func (t *nonconcurrentSim) tick() {
 	for _, e := range t.ents {
 		e.prethink()
 	}
@@ -29,6 +29,6 @@ func (t *typicalSim) tick() {
 	}
 }
 
-func BenchmarkTypical(b *testing.B) {
-	bench(&typicalSim{}, b)
+func BenchmarkNonConcurrent(b *testing.B) {
+	bench(&nonconcurrentSim{}, b)
 }
